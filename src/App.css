@@ -1,0 +1,225 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top, #050816 0, #020308 60%, #000 100%);
+  color: #f5f5f5;
+  min-height: 300vh;
+  overflow-x: hidden;
+}
+
+.page {
+  min-height: 300vh;
+}
+
+/* SCENE LAYOUT */
+
+.scene {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5vw;
+  overflow: visible;
+}
+
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: 420px;
+  margin-right: 3rem;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+  .scene {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin-right: 0;
+    margin-top: 2rem;
+  }
+}
+
+/* SOLAR SYSTEM */
+
+.solar-system {
+  position: relative;
+  width: min(70vw, 560px);
+  height: min(70vw, 560px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  transition: transform 0.2s linear;
+  will-change: transform;
+}
+
+.sun {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #ffe082 0, #ffb300 40%, #ff6f00 100%);
+  box-shadow: 0 0 18px rgba(255, 193, 7, 0.7);
+}
+
+/* ORBITS */
+
+.orbit {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  transform-origin: center center;
+  transform: rotate(0deg);
+  will-change: transform;
+}
+
+.orbit1 { width: 30%; height: 30%; }
+.orbit2 { width: 40%; height: 40%; }
+.orbit3 { width: 50%; height: 50%; }
+.orbit4 { width: 60%; height: 60%; }
+.orbit5 { width: 70%; height: 70%; }
+.orbit6 { width: 80%; height: 80%; }
+.orbit7 { width: 90%; height: 90%; }
+.orbit8 { width: 100%; height: 100%; }
+
+/* PLANETS */
+
+.planet {
+  cursor: pointer;
+  will-change: transform;
+}
+
+.planet1 {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #90caf9, #1e88e5);
+  box-shadow: 0 0 6px rgba(144, 202, 249, 0.7);
+}
+
+.planet2 {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #c5e1a5, #7cb342);
+  box-shadow: 0 0 6px rgba(197, 225, 165, 0.7);
+}
+
+.planet3 {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffab91, #ff7043);
+  box-shadow: 0 0 8px rgba(255, 171, 145, 0.7);
+}
+
+.planet4 {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffccde, #f48fb1);
+  box-shadow: 0 0 8px rgba(244, 143, 177, 0.7);
+}
+
+.planet5 {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f3d8ff, #ce93d8);
+  box-shadow: 0 0 8px rgba(206, 147, 216, 0.7);
+}
+
+.planet6 {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #e3d7ff, #b39ddb);
+  box-shadow: 0 0 10px rgba(179, 157, 219, 0.7);
+}
+
+.planet7 {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #dffff7, #80cbc4);
+  box-shadow: 0 0 10px rgba(128, 203, 196, 0.7);
+}
+
+.planet8 {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff4c4, #ffcc80);
+  box-shadow: 0 0 12px rgba(255, 204, 128, 0.7);
+}
+
+/* FACT CARD */
+
+.fact-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: rgba(12, 12, 20, 0.92);
+  padding: 1.5rem;
+  border-radius: 14px;
+  width: min(80vw, 340px);
+  text-align: center;
+  z-index: 2000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  animation: popIn 0.25s ease-out;
+}
+
+@keyframes popIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.fact-card p {
+  line-height: 1.55;
+  opacity: 0.92;
+  font-size: 1rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 4px;
+  right: -4px;
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.85;
+  z-index: 10;
+}
+.orbit {
+  pointer-events: none;
+}
+
+.planet {
+  pointer-events: auto;
+  cursor: pointer;
+}
