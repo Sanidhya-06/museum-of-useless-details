@@ -1,128 +1,197 @@
 /* solar.css - solar system visuals, orbits, planets, fact card */
 
+.solar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .solar-system {
   position: relative;
-  width: min(70vw, 560px);
-  height: min(70vw, 560px);
+  width: min(80vw, 600px);
+  height: min(80vw, 600px);
   display: flex;
   align-items: center;
   justify-content: center;
   transform-origin: center center;
-  transition: transform 0.2s linear;
-  will-change: transform;
+  transition: transform 0.1s ease-out; /* Smooth transition for scale */
+}
+
+/* SUN GLOW PULSE */
+@keyframes sun-pulse {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 171, 0, 0.5), 0 0 40px rgba(255, 109, 0, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(255, 171, 0, 0.8), 0 0 60px rgba(255, 109, 0, 0.5);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 171, 0, 0.5), 0 0 40px rgba(255, 109, 0, 0.3);
+    transform: scale(1);
+  }
 }
 
 .sun {
-  width: 60px;
-  height: 60px;
-  border-radius: 999px;
-  background: radial-gradient(circle, #ffe082 0, #ffb300 40%, #ff6f00 100%);
-  box-shadow: 0 0 18px rgba(255, 193, 7, 0.7);
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffde7 0%, #ffc107 40%, #ff6f00 100%);
+  z-index: 5;
+  animation: sun-pulse 4s ease-in-out infinite;
 }
 
 /* ORBITS */
 
 .orbit {
   position: absolute;
-  border-radius: 999px;
-  border: 1px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
   transform-origin: center center;
-  transform: rotate(0deg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
   will-change: transform;
 }
 
-.orbit1 { width: 30%; height: 30%; }
-.orbit2 { width: 40%; height: 40%; }
-.orbit3 { width: 50%; height: 50%; }
-.orbit4 { width: 60%; height: 60%; }
-.orbit5 { width: 70%; height: 70%; }
-.orbit6 { width: 80%; height: 80%; }
-.orbit7 { width: 90%; height: 90%; }
-.orbit8 { width: 100%; height: 100%; }
+.orbit1 { width: 28%; height: 28%; }
+.orbit2 { width: 38%; height: 38%; }
+.orbit3 { width: 48%; height: 48%; }
+.orbit4 { width: 58%; height: 58%; }
+.orbit5 { width: 68%; height: 68%; }
+.orbit6 { width: 78%; height: 78%; }
+.orbit7 { width: 88%; height: 88%; }
+.orbit8 { width: 98%; height: 98%; }
 
 /* PLANETS */
 
 .planet {
   cursor: pointer;
-  will-change: transform;
+  border: none;
+  transform: translateY(-50%); /* Center planet on the orbit dashed line */
+  pointer-events: auto;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s ease;
+  z-index: 10;
+}
+
+.planet:hover {
+  transform: translateY(-50%) scale(1.35);
+  box-shadow: 0 0 18px currentColor;
 }
 
 .planet1 {
-  width: 20px; height: 20px;
+  width: 18px; height: 18px;
   border-radius: 50%;
-  background: radial-gradient(circle, #90caf9, #1e88e5);
-  box-shadow: 0 0 6px rgba(144, 202, 249, 0.7);
+  background: radial-gradient(circle, #b3e5fc, #0288d1);
+  color: rgba(2, 136, 209, 0.6);
+  box-shadow: 0 0 8px rgba(2, 136, 209, 0.4);
 }
 
 .planet2 {
-  width: 24px; height: 24px;
+  width: 22px; height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle, #c5e1a5, #7cb342);
-  box-shadow: 0 0 6px rgba(197, 225, 165, 0.7);
+  background: radial-gradient(circle, #dcedc8, #558b2f);
+  color: rgba(85, 139, 47, 0.6);
+  box-shadow: 0 0 8px rgba(85, 139, 47, 0.4);
 }
 
 .planet3 {
-  width: 28px; height: 28px;
+  width: 26px; height: 26px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ffab91, #ff7043);
-  box-shadow: 0 0 8px rgba(255, 171, 145, 0.7);
+  background: radial-gradient(circle, #ffccbc, #d84315);
+  color: rgba(216, 67, 21, 0.6);
+  box-shadow: 0 0 10px rgba(216, 67, 21, 0.4);
 }
 
 .planet4 {
-  width: 26px; height: 26px;
+  width: 24px; height: 24px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ffccde, #f48fb1);
-  box-shadow: 0 0 8px rgba(244, 143, 177, 0.7);
+  background: radial-gradient(circle, #f8bbd0, #c2185b);
+  color: rgba(194, 24, 91, 0.6);
+  box-shadow: 0 0 10px rgba(194, 24, 91, 0.4);
 }
 
 .planet5 {
-  width: 28px; height: 28px;
+  width: 26px; height: 26px;
   border-radius: 50%;
-  background: radial-gradient(circle, #f3d8ff, #ce93d8);
-  box-shadow: 0 0 8px rgba(206, 147, 216, 0.7);
+  background: radial-gradient(circle, #e1bee7, #7b1fa2);
+  color: rgba(123, 31, 162, 0.6);
+  box-shadow: 0 0 10px rgba(123, 31, 162, 0.4);
 }
 
 .planet6 {
-  width: 30px; height: 30px;
+  width: 28px; height: 28px;
   border-radius: 50%;
-  background: radial-gradient(circle, #e3d7ff, #b39ddb);
-  box-shadow: 0 0 10px rgba(179, 157, 219, 0.7);
+  background: radial-gradient(circle, #d1c4e9, #4527a0);
+  color: rgba(69, 39, 160, 0.6);
+  box-shadow: 0 0 12px rgba(69, 39, 160, 0.4);
 }
 
 .planet7 {
-  width: 32px; height: 32px;
+  width: 30px; height: 30px;
   border-radius: 50%;
-  background: radial-gradient(circle, #dffff7, #80cbc4);
-  box-shadow: 0 0 10px rgba(128, 203, 196, 0.7);
+  background: radial-gradient(circle, #b2dfdb, #00695c);
+  color: rgba(0, 105, 92, 0.6);
+  box-shadow: 0 0 12px rgba(0, 105, 92, 0.4);
 }
 
 .planet8 {
-  width: 36px; height: 36px;
+  width: 34px; height: 34px;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff4c4, #ffcc80);
-  box-shadow: 0 0 12px rgba(255, 204, 128, 0.7);
+  background: radial-gradient(circle, #fff9c4, #ef6c00);
+  color: rgba(239, 108, 0, 0.6);
+  box-shadow: 0 0 14px rgba(239, 108, 0, 0.4);
 }
 
-/* FACT CARD */
+/* OVERLAY BACKDROP */
+
+.fact-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 4, 10, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1999;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* GLASSMORPHIC FACT CARD */
 
 .fact-card {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  background: rgba(12, 12, 20, 0.92);
-  padding: 1.5rem;
-  border-radius: 14px;
-  width: min(80vw, 340px);
+  transform: translate(-50%, -50%);
+  background: rgba(13, 17, 35, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  width: min(90vw, 440px);
   text-align: center;
   z-index: 2000;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-  animation: popIn 0.25s ease-out;
+  box-shadow: 
+    0 10px 40px -10px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(99, 102, 241, 0.15);
+  animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes popIn {
   0% {
-    transform: translate(-50%, -50%) scale(0.6);
+    transform: translate(-50%, -50%) scale(0.85);
     opacity: 0;
   }
   100% {
@@ -131,30 +200,46 @@
   }
 }
 
+.fact-card-planet {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #818cf8;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
 .fact-card p {
-  line-height: 1.55;
-  opacity: 0.92;
-  font-size: 1rem;
+  line-height: 1.6;
+  color: #f1f5f9;
+  font-size: 1.05rem;
+  font-weight: 300;
 }
 
 .close-btn {
   position: absolute;
-  top: 4px;
-  right: -4px;
-  font-size: 1.4rem;
-  background: none;
-  border: none;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.3rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  cursor: pointer;
-  opacity: 0.85;
-  z-index: 10;
-}
-
-.orbit {
-  pointer-events: none;
-}
-
-.planet {
-  pointer-events: auto;
-  cursor: pointer;
+  transform: rotate(90deg);
+  border-color: rgba(255, 255, 255, 0.2);
 }

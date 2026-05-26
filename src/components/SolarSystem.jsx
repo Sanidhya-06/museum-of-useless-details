@@ -4,37 +4,22 @@ import Planet from "./Planet";
 import facts from "../data/facts.json";
 import pickRandom from "../utils/pickRandom";
 
-
 export default function SolarSystem({ onPlanetClicked }) {
-  const sceneRef = useRef(null);
   const solarRef = useRef(null);
   const orbitRefs = useRef([]);
 
   useEffect(() => {
-    const scene = sceneRef.current;
     const solar = solarRef.current;
-
-    if (!scene || !solar) return;
-
-    let viewPortHeight = window.innerHeight;
-    const handleResize = () => {
-      viewPortHeight = window.innerHeight;
-    };
-    window.addEventListener("resize", handleResize);
+    if (!solar) return;
 
     let frameId = null;
-    const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
 
     const updateOnScroll = () => {
-      const rect = scene.getBoundingClientRect();
-      const start = viewPortHeight;
-      const end = -viewPortHeight;
-      const current = rect.top;
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollableHeight <= 0) return;
 
-      let progress = (start - current) / (start - end);
-      progress = clamp(progress, 0, 1);
-
-      const base = progress * 720; // two full rotations at max
+      const progress = window.scrollY / scrollableHeight;
+      const base = progress * 720; // two full rotations at max scroll
 
       const orbitSpeeds = [0.5, 0.7, 0.8, 1.35, 1.7, 1.5, 1.4, 1.2];
       orbitRefs.current.forEach((orbit, idx) => {
@@ -42,7 +27,7 @@ export default function SolarSystem({ onPlanetClicked }) {
         orbit.style.transform = `rotate(${base * orbitSpeeds[idx]}deg)`;
       });
 
-      solar.style.transform = `scale(${1 + progress * 0.4})`;
+      solar.style.transform = `scale(${1 + progress * 0.2})`;
     };
 
     const onScroll = () => {
@@ -55,27 +40,28 @@ export default function SolarSystem({ onPlanetClicked }) {
 
     updateOnScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", updateOnScroll);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", updateOnScroll);
       if (frameId) cancelAnimationFrame(frameId);
     };
   }, []);
 
   const planets = [
-    { orbitClass: "orbit1", planetClass: "planet1" },
-    { orbitClass: "orbit2", planetClass: "planet2" },
-    { orbitClass: "orbit3", planetClass: "planet3" },
-    { orbitClass: "orbit4", planetClass: "planet4" },
-    { orbitClass: "orbit5", planetClass: "planet5" },
-    { orbitClass: "orbit6", planetClass: "planet6" },
-    { orbitClass: "orbit7", planetClass: "planet7" },
-    { orbitClass: "orbit8", planetClass: "planet8" }
+    { name: "Mercury", orbitClass: "orbit1", planetClass: "planet1" },
+    { name: "Venus", orbitClass: "orbit2", planetClass: "planet2" },
+    { name: "Earth", orbitClass: "orbit3", planetClass: "planet3" },
+    { name: "Mars", orbitClass: "orbit4", planetClass: "planet4" },
+    { name: "Jupiter", orbitClass: "orbit5", planetClass: "planet5" },
+    { name: "Saturn", orbitClass: "orbit6", planetClass: "planet6" },
+    { name: "Uranus", orbitClass: "orbit7", planetClass: "planet7" },
+    { name: "Neptune", orbitClass: "orbit8", planetClass: "planet8" }
   ];
 
   return (
-    <div ref={sceneRef} className="solar-wrap">
+    <div className="solar-wrap">
       <div className="solar-system" ref={solarRef}>
         <div className="sun" aria-hidden="true" />
 
@@ -88,10 +74,10 @@ export default function SolarSystem({ onPlanetClicked }) {
             <Planet
               className={`planet ${p.planetClass}`}
               onClick={() => {
-                const fact = pickRandom(facts) || "No facts loaded.";
-                onPlanetClicked(fact);
+                const text = pickRandom(facts) || "No facts loaded.";
+                onPlanetClicked({ text, planetName: p.name });
               }}
-              ariaLabel={`Planet ${idx + 1}`}
+              ariaLabel={p.name}
             />
           </div>
         ))}
